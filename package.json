@@ -1,0 +1,8 @@
+{
+  "name": "api-artmotics-diseno3D",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jdbarajass/api-artmotics-diseno3D.git",
+  "author": "jdbarajass <jdbarajass@gmail.com>",
+  "license": "MIT"
+}
