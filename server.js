@@ -1,12 +1,13 @@
 import Express from "express";
 // const cors = require("cors"); // Esta es otra forma de importar
 import Cors from "cors"; // Esta es otra forma
+import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb"; // Importamos Mongo DB
 // Vamos a crear una instancia de la clase MongoClient
 // const stringbaseDeDatos = es el estring de baseDeDatos
 
-const stringbaseDeDatos =
-  "mongodb+srv://jdbarajass:artmotics2021@proyectodiseno3d.2h5uy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+dotenv.config({ path: "./.env " }); // la ruta en donde esta mi link de conección
+const stringbaseDeDatos = process.env.DATABASE_URL; // dentro de DATABASE_URL esta mi URL de conexion
 const client = new MongoClient(stringbaseDeDatos, {
   useNewUrlParser: true,
   useUnifiedTopology: true, // son 2 configuraciones que recomienda mongo
@@ -93,14 +94,16 @@ app.patch("/diseno3D/editar", (req, res) => {
 app.delete("/diseno3D/eliminar", (req, res) => {
   // enviamos el id por el body
   const filtrodiseno3D = { _id: new ObjectId(req.body.id) };
-  baseDeDatos.collection("diseno3D").deleteOne(filtrodiseno3D, (err, result) => {
-    if (err) {
-      console.error(err);
-      res.sendStatus(500)
-    } else {
-      res.sendStatus(200)
-    }
-  })
+  baseDeDatos
+    .collection("diseno3D")
+    .deleteOne(filtrodiseno3D, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
 });
 
 const main = () => {
@@ -108,6 +111,7 @@ const main = () => {
   client.connect((err, db) => {
     if (err) {
       console.error("Error conectando a la base de datos");
+      return "error;"
     }
     baseDeDatos = db.db("diseno3D");
     console.log("conexion a baseDeDatos éxitosa");
@@ -162,3 +166,4 @@ me genera */
     { nombre: "Tulip vase", color: "rojo", material: "Filamento PETG" }, // Vamos a suponer que esta informacion esta llegando a la base de datos
   ]; */
 // se instala cors = yarn add cors para que puede escuchar varias solicitudes de muchos lados y no tenga inconvenientes si desde otros puertos le hacen la solicitud. Es un error de cliente usuario es decir de front pero que se debe solucionar en el backend
+// En el archivo .env = Es un archivo con variables de entorno, Colocamos todo lo que no debe ir al GitHub pero que es secreto para nosotros, es decir como contraseñas, conectarnos a un api, conectarnos a una base de datos entonces colocamos la URL, el puerto donde se corre el programa y demas... Para usarlo necesito instalar la libreria yarn add dotenv = es la que nos permite organizar y usar las variables de entorno en el codigo para no tener problemas de seguridad
