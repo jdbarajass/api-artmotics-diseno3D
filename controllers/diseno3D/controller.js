@@ -38,7 +38,17 @@ const editardiseno3D = async (edicion, callback) => {
     operacion,
     { upsert: true, returnOriginal: true },callback); // baseDeDatos= conexion... dentro de collection ponemos la coleccion que queremos editar en este caso diseno3D y este codigo findOneAndUpdate()= es la funcion que me permite a mi editar, y debo pasarle 3 argumentos el filtro que quiero utilizar, cual es el dato que quiero editar o actualizar y por ultimo el callback upsert lo que hace es que si no encuentra lo que esta buscando la crearia esa nueva funcion... returnOriginal= es para comparar con el valor original y el callback es el error y el resultado
 };
-export { queryAlldiseno3D, creardiseno3D, editardiseno3D }
+const eliminardiseno3D = async (id,callback) => {
+  // enviamos el id por el body
+  const filtrodiseno3D = { _id: new ObjectId(id) };
+  const baseDeDatos = getDB();
+  await baseDeDatos
+    .collection("diseno3D")
+    .deleteOne(filtrodiseno3D, callback);
+}
+export { queryAlldiseno3D, creardiseno3D, editardiseno3D, eliminardiseno3D }
 // los res.status y los res.json no se lo puedo decir al controlador porque eso es de la ruta no del controlador
 
  //const edicion = req.body; // tengo que recibir el vehiculo que quiero editar, os id llegan en el body y no en la URL pero tambien se puede por la URL que sea dinamica
+ // el async y await se usan siempre que tengo una conexion a base de datos porque debo enviar la solicitud esperar a que procese y ahi si seguir con el codigo
+ // la diferencia entre put y path es que put me actuliza todo de una vez y path solo de a uno

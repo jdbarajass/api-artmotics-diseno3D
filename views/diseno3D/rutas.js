@@ -1,9 +1,9 @@
 import Express from "express";
 import {
   queryAlldiseno3D,
-  creardiseno3D, editardiseno3D
+  creardiseno3D, editardiseno3D, eliminardiseno3D
 } from "../../controllers/diseno3D/controller.js";
-import { getDB } from "../../db/db.js"; // import {getDB } from "../../db/db.js";= estos son imports relativos
+
 
 const rutasdiseno3D = Express.Router(); // Vamos a crear variable que va a ser la variable del router que despues vamos a importar
 const genericcallback = (res) => (err, result) => {
@@ -30,19 +30,7 @@ editardiseno3D(req.body,genericcallback(res));
 });
 
 rutasdiseno3D.route("/diseno3D/eliminar").delete((req, res) => {
-  // enviamos el id por el body
-  const filtrodiseno3D = { _id: new ObjectId(req.body.id) };
-  const baseDeDatos = getDB();
-  baseDeDatos
-    .collection("diseno3D")
-    .deleteOne(filtrodiseno3D, (err, result) => {
-      if (err) {
-        console.error(err);
-        res.sendStatus(500);
-      } else {
-        res.sendStatus(200);
-      }
-    });
+eliminardiseno3D(req.body.id,genericcallback(res));
 });
 
 export default rutasdiseno3D;
@@ -84,3 +72,5 @@ rutasdiseno3D.route("/diseno3D/nuevo").post((req, res) => {
   }
 });
 */
+//import { getDB } from "../../db/db.js"; // import {getDB } from "../../db/db.js";= estos son imports relativos
+// Lo que se hizo fue separar las rutas y los controladores
