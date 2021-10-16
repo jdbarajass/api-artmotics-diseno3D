@@ -1,9 +1,10 @@
 import Express from "express";
 import {
   queryAlldiseno3D,
-  creardiseno3D, editardiseno3D, eliminardiseno3D
+  creardiseno3D,
+  editardiseno3D,
+  eliminardiseno3D,
 } from "../../controllers/diseno3D/controller.js";
-
 
 const rutasdiseno3D = Express.Router(); // Vamos a crear variable que va a ser la variable del router que despues vamos a importar
 const genericcallback = (res) => (err, result) => {
@@ -17,20 +18,20 @@ const genericcallback = (res) => (err, result) => {
 rutasdiseno3D.route("/diseno3D").get((req, res) => {
   // este codigo es para hacer una consulta a la base de datos
   console.log("alguien hizo get en la ruta /diseno3D");
-  queryAlldiseno3D(genericcallback(res)); //queryAlldiseno3D(responsediseno3D) lo que hace es que cuando el query termine de hacer lo que va a hacer ejecute la respuesta es decir los res.status
-}); // Vamos a crear una ruta y como vamos a hacer una ruta de tipo lectura pongo app.get() y ahora en el parentesis deben ir 2 parametros el primero coloco el pat a donde quiero que esa informacion llegue es decir la ruta... el primero parametro es la ruta y el segundo parametro es una funcion que se ejecuta cuando alguien llama a esa ruta cuando alguien hace una peticion de tipo get a esa ruta es decir el callback... Cuando en react haciamos console.log lo veiamos en un f12 pero en un servidor los console.log vamos a ver esos console.log a acá mismo en la terminal de visual code es decir en la terminar en donde estamos corriendo el servidor... entonces si el console.log lo entrega el navegador es un cliente pero si el console.log lo entrega la terminar es porque es un codigo servidor
-//Siempre que hago una solicitud a una ruta en express a esta funcion "/diseno3D", (req,res) =>  le deben entrar 2 parametros el req=request (quien esta haciendo la solicitud) y el res= respuesta que le voy a entregar al navegador... siempre debo estar oprimiendo control c y ejecutando de nuevo yarn start para mirar los cambios que se hagan pero para evitar esto se instala nodemon yarn add -D nodemon = y el -D es para que sea una dependencia de desarrollo entopnces el se da cuenta que se hizo algun cambio en el archivo y vuelve y lo ejecuta pero entonces en el package debemos cambiar la linea de codigo que dice "start": "node server.js" la cambiamos por "start": "nodemon server.js"
+  queryAlldiseno3D(genericcallback(res)); // los verbos get y post van a la misma ruta porque o los estoy obteniendo o los estoy creando
+});
 
-rutasdiseno3D.route("/diseno3D/nuevo").post((req, res) => {
+rutasdiseno3D.route("/diseno3D").post((req, res) => {
   creardiseno3D(req.body, genericcallback(res));
 });
 
-rutasdiseno3D.route("/diseno3D/editar").patch((req, res) => {
-editardiseno3D(req.body,genericcallback(res));
+rutasdiseno3D.route("/diseno3D/:id").patch((req, res) => {
+  // :id = ruta dinamica
+  editardiseno3D(req.params.id,req.body, genericcallback(res)); // a aca entonces si yo le mando un path a un diseno en especifico, entonces ese diseno3D se editaria por medio del id de ese diseno 3D en especifico que quiero cambiar y se envia el id por medio de la URL y para saber ese id usamos params.id
 });
 
-rutasdiseno3D.route("/diseno3D/eliminar").delete((req, res) => {
-eliminardiseno3D(req.body.id,genericcallback(res));
+rutasdiseno3D.route("/diseno3D/:id").delete((req, res) => {
+  eliminardiseno3D(req.params.id, genericcallback(res));
 });
 
 export default rutasdiseno3D;
@@ -74,3 +75,12 @@ rutasdiseno3D.route("/diseno3D/nuevo").post((req, res) => {
 */
 //import { getDB } from "../../db/db.js"; // import {getDB } from "../../db/db.js";= estos son imports relativos
 // Lo que se hizo fue separar las rutas y los controladores
+
+/*
+rutasdiseno3D.route("/diseno3D").get((req, res) => {
+  // este codigo es para hacer una consulta a la base de datos
+  console.log("alguien hizo get en la ruta /diseno3D");
+  queryAlldiseno3D(genericcallback(res)); //queryAlldiseno3D(responsediseno3D) lo que hace es que cuando el query termine de hacer lo que va a hacer ejecute la respuesta es decir los res.status
+}); // Vamos a crear una ruta y como vamos a hacer una ruta de tipo lectura pongo app.get() y ahora en el parentesis deben ir 2 parametros el primero coloco el pat a donde quiero que esa informacion llegue es decir la ruta... el primero parametro es la ruta y el segundo parametro es una funcion que se ejecuta cuando alguien llama a esa ruta cuando alguien hace una peticion de tipo get a esa ruta es decir el callback... Cuando en react haciamos console.log lo veiamos en un f12 pero en un servidor los console.log vamos a ver esos console.log a acá mismo en la terminal de visual code es decir en la terminar en donde estamos corriendo el servidor... entonces si el console.log lo entrega el navegador es un cliente pero si el console.log lo entrega la terminar es porque es un codigo servidor
+//Siempre que hago una solicitud a una ruta en express a esta funcion "/diseno3D", (req,res) =>  le deben entrar 2 parametros el req=request (quien esta haciendo la solicitud) y el res= respuesta que le voy a entregar al navegador... siempre debo estar oprimiendo control c y ejecutando de nuevo yarn start para mirar los cambios que se hagan pero para evitar esto se instala nodemon yarn add -D nodemon = y el -D es para que sea una dependencia de desarrollo entopnces el se da cuenta que se hizo algun cambio en el archivo y vuelve y lo ejecuta pero entonces en el package debemos cambiar la linea de codigo que dice "start": "node server.js" la cambiamos por "start": "nodemon server.js"
+*/
