@@ -4,6 +4,7 @@ import {
   creardiseno3D,
   editardiseno3D,
   eliminardiseno3D,
+  consultardiseno3D,
 } from "../../controllers/diseno3D/controller.js";
 
 const rutasdiseno3D = Express.Router(); // Vamos a crear variable que va a ser la variable del router que despues vamos a importar
@@ -23,6 +24,11 @@ rutasdiseno3D.route("/diseno3D").get((req, res) => {
 
 rutasdiseno3D.route("/diseno3D").post((req, res) => {
   creardiseno3D(req.body, genericcallback(res));
+});
+
+rutasdiseno3D.route("/diseno3D/:id").get((req, res) => {
+  console.log("alguien hizo get en la ruta /diseno3D");
+  consultardiseno3D(req.params.id, genericcallback(res));
 });
 
 rutasdiseno3D.route("/diseno3D/:id").patch((req, res) => {

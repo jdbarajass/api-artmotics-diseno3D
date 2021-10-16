@@ -25,6 +25,11 @@ const creardiseno3D = async (datosdiseno3D, callback) => {
     }
 };
 
+const consultardiseno3D = async (id, callback) => {// Es para colsutar solo un producto en especifico y no todos
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection("diseno3D").findOne({ _id: new ObjectId(id) },callback);
+};
+
 const editardiseno3D = async (id, edicion, callback) => {
   const filtrodiseno3D = { _id: new ObjectId(id) };
   const operacion = {
@@ -44,7 +49,13 @@ const eliminardiseno3D = async (id,callback) => {
   const baseDeDatos = getDB();
   await baseDeDatos.collection("diseno3D").deleteOne(filtrodiseno3D, callback);
 }
-export { queryAlldiseno3D, creardiseno3D, editardiseno3D, eliminardiseno3D }
+export {
+  queryAlldiseno3D,
+  creardiseno3D,
+  consultardiseno3D,
+  editardiseno3D,
+  eliminardiseno3D,
+};
 // los res.status y los res.json no se lo puedo decir al controlador porque eso es de la ruta no del controlador
 
  //const edicion = req.body; // tengo que recibir el vehiculo que quiero editar, os id llegan en el body y no en la URL pero tambien se puede por la URL que sea dinamica

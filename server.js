@@ -5,6 +5,8 @@ import Cors from "cors"; // Esta es otra forma
 import dotenv from "dotenv";
 import { conectarBD } from "./db/db.js";
 import rutasdiseno3D from "./views/diseno3D/rutas.js";
+import rutasusuarios from "./views/usuarios/rutas.js";
+import rutasventas from "./views/ventas/rutas.js";
 
 dotenv.config({ path: "./.env" }); // la ruta en donde esta mi link de conección
 //dotenv.config({ path: "./.env" });
@@ -13,6 +15,9 @@ const app = Express();
 app.use(Express.json()); // Cuando me llega una solicitud de tipo json en un request el      Express.json convierte el body de ese request en un objeto que ya podemos utilizar
 app.use(Cors());
 app.use(rutasdiseno3D)
+app.use(rutasusuarios)
+app.use(rutasventas)
+
 const main = () => {
   return app.listen(process.env.PORT, () => {
     //process.env.PORT= en el archivo .env estará el puerto (PORT) en el que esta corriendo
