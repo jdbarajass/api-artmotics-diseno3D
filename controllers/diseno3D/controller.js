@@ -58,7 +58,7 @@ export {
 };
 // los res.status y los res.json no se lo puedo decir al controlador porque eso es de la ruta no del controlador
 
- //const edicion = req.body; // tengo que recibir el vehiculo que quiero editar, os id llegan en el body y no en la URL pero tambien se puede por la URL que sea dinamica
+ //const edicion = req.body; // tengo que recibir el diseño 3D que quiero editar, os id llegan en el body y no en la URL pero tambien se puede por la URL que sea dinamica
  // el async y await se usan siempre que tengo una conexion a base de datos porque debo enviar la solicitud esperar a que procese y ahi si seguir con el codigo
  // la diferencia entre put y path es que put me actuliza todo de una vez y path solo de a uno
  

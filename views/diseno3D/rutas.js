@@ -11,7 +11,9 @@ const rutasdiseno3D = Express.Router(); // Vamos a crear variable que va a ser l
 const genericcallback = (res) => (err, result) => {
   // esto es para enviar respuestas genericas de lo que me esta devolviendo mongo
   if (err) {
+    console.log("Error: ", err);
     res.status(500).send("Error consultando los diseños 3D"); // en esta linea no solo le enviamos el error sino tambien un mensaje
+    res.status(500).json({error: err});
   } else {
     res.json(result); // enviamos el resultado de la colsulta de la base de datos lo enviamos al fronEnd pero en formado .json
   }
@@ -48,7 +50,7 @@ export default rutasdiseno3D;
 rutasdiseno3D.route("/diseno3D/nuevo").post((req, res) => {
   // La pregunta de esta solicitud tipo post es como pruebo que si este funcinando ya que siempre que recargo la pagina estoy haciendo una solicitud de tipo GET eso es lo que siempre hace el navegador... Entonces para probar esto se usa insomnia que es par probar solicitudes a un api
   console.log(req);
-  const datosdiseno3D = req.body; // como req.body es un objeto yo puedo obtener los keys de ese objeto... pero a aca voy a enviar los datos del vehiculo
+  const datosdiseno3D = req.body; // como req.body es un objeto yo puedo obtener los keys de ese objeto... pero a aca voy a enviar los datos del diseno 3D
   console.log("llaves:", Object.keys(datosdiseno3D)); // Con el body ya estoy imprimiendo lo que estoy simulando traer del fronEnd
   try {
     // Si por algun motivo sale un error se envia el estado 500 es para tener un correcto manejo de errores y saber como se solucionan
