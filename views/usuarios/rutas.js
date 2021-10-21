@@ -5,6 +5,7 @@ import {
   editarusuarios,
   eliminarusuarios,
   consultarusuarios,
+  queryAllusuariosVendedor,
 } from "../../controllers/usuarios/controller.js";
 
 const rutasusuarios = Express.Router(); 
@@ -18,6 +19,11 @@ const genericcallback = (res) => (err, result) => {
 rutasusuarios.route("/usuarios").get((req, res) => {
   console.log("alguien hizo get en la ruta /usuarios");
   queryAllusuarios(genericcallback(res));
+});
+
+rutasusuarios.route("/usuariosVendedor").get((req, res) => {
+  console.log("alguien hizo get en la ruta /usuariosVendedor");
+  queryAllusuariosVendedor(genericcallback(res));
 });
 
 rutasusuarios.route("/usuarios").post((req, res) => {

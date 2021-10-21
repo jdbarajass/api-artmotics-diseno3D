@@ -6,6 +6,11 @@ const queryAllusuarios = async (callback) => {
   await baseDeDatos.collection("usuarios").find().limit(50).toArray(callback); 
 };
 
+const queryAllusuariosVendedor = async (callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection("usuarios").find({rol:"vendedor"}).limit(50).toArray(callback); 
+};
+
 const crearusuarios = async (datosusuarios, callback) => {
     const baseDeDatos = getDB();
     await baseDeDatos.collection("usuarios").insertOne(datosusuarios, callback);
@@ -42,4 +47,5 @@ export {
   consultarusuarios,
   editarusuarios,
   eliminarusuarios,
+  queryAllusuariosVendedor,
 };

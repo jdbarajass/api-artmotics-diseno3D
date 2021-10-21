@@ -1,53 +1,37 @@
-import { getDB } from "../../db/db.js";
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
+import { getDB } from '../../db/db.js';
 
-const queryAllventas = async (callback) => {
+const queryAllSales = async (callback) => {
   const baseDeDatos = getDB();
-  await baseDeDatos.collection("ventas").find().limit(50).toArray(callback);
+  console.log('query');
+  await baseDeDatos.collection('ventas').find({}).limit(50).toArray(callback);
 };
 
-const crearventas = async (datosventas, callback) => {
-  if (
-    Object.keys(datosventas).includes("name") &&
-    Object.keys(datosventas).includes("brand") &&
-    Object.keys(datosventas).includes("model")
-  ) {
-    const baseDeDatos = getDB();
-    await baseDeDatos.collection("ventas").insertOne(datosventas, callback);
-  } else {
-    return "error";
-  }
-};
-
-const consultarventas = async (id, callback) => {
+const crearVenta = async (datosVenta, callback) => {
   const baseDeDatos = getDB();
-  await baseDeDatos
-    .collection("ventas")
-    .findOne({ _id: new ObjectId(id) }, callback);
+  await baseDeDatos.collection('ventas').insertOne(datosVenta, callback);
 };
 
-const editarventas = async (id, edicion, callback) => {
-  const filtroventas = { _id: new ObjectId(id) };
+const consultarVenta = async (id, callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection('ventas').findOne({ _id: new ObjectId(id) }, callback);
+};
+
+const editarVenta = async (id, edicion, callback) => {
+  const filtroVenta = { _id: new ObjectId(id) };
   const operacion = {
     $set: edicion,
-  }; 
+  };
   const baseDeDatos = getDB();
-  await baseDeDatos.collection("ventas").findOneAndUpdate(
-    filtroventas,
-    operacion,
-    { upsert: true, returnOriginal: true },
-    callback
-  ); 
+  await baseDeDatos
+    .collection('venta')
+    .findOneAndUpdate(filtroVenta, operacion, { upsert: true, returnOriginal: true }, callback);
 };
-const eliminarventas = async (id, callback) => {
-  const filtroventas = { _id: new ObjectId(id) };
+
+const eliminarVenta = async (id, callback) => {
+  const filtroVenta = { _id: new ObjectId(id) };
   const baseDeDatos = getDB();
-  await baseDeDatos.collection("ventas").deleteOne(filtroventas, callback);
+  await baseDeDatos.collection('ventas').deleteOne(filtroVenta, callback);
 };
-export {
-  queryAllventas,
-  crearventas,
-  consultarventas,
-  editarventas,
-  eliminarventas,
-};
+
+export { queryAllSales, crearVenta, consultarVenta, editarVenta, eliminarVenta };

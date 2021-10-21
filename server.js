@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { conectarBD } from "./db/db.js";
 import rutasdiseno3D from "./views/diseno3D/rutas.js";
 import rutasusuarios from "./views/usuarios/rutas.js";
+import rutasclientes from "./views/clientes/rutas.js";
 import rutasventas from "./views/ventas/rutas.js";
 
 dotenv.config({ path: "./.env" }); // la ruta en donde esta mi link de conección
@@ -16,6 +17,7 @@ app.use(Express.json()); // Cuando me llega una solicitud de tipo json en un req
 app.use(Cors());
 app.use(rutasdiseno3D)
 app.use(rutasusuarios)
+app.use(rutasclientes)
 app.use(rutasventas)
 
 const main = () => {
