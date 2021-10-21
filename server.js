@@ -7,6 +7,8 @@ import { conectarBD } from "./db/db.js";
 import rutasdiseno3D from "./views/diseno3D/rutas.js";
 import rutasusuarios from "./views/usuarios/rutas.js";
 import rutasventas from "./views/ventas/rutas.js";
+import jwt from "express-jwt";// importa las librerias de jwt json web tokens
+import jwks from "jwks-rsa";
 
 dotenv.config({ path: "./.env" }); // la ruta en donde esta mi link de conección
 //dotenv.config({ path: "./.env" });
@@ -14,6 +16,20 @@ const app = Express();
 
 app.use(Express.json()); // Cuando me llega una solicitud de tipo json en un request el      Express.json convierte el body de ese request en un objeto que ya podemos utilizar
 app.use(Cors());
+
+var jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: "https://misiontic-diseno3d.us.auth0.com/.well-known/jwks.json",
+  }),
+  audience: "api-autenticacion-diseno3D",
+  issuer: "https://misiontic-diseno3d.us.auth0.com/",
+  algorithms: ["RS256"],
+});
+
+app.use(jwtCheck);
 app.use(rutasdiseno3D)
 app.use(rutasusuarios)
 app.use(rutasventas)
@@ -82,3 +98,4 @@ me genera */
 // Modelo = lo que va directo a la base de datos
 // Vista = son las URL
 // Controlador = lo que va adentro de una funcion lo que se controla
+// se instala yarn add express-jwt jwks-rsa express-jwt-authz
