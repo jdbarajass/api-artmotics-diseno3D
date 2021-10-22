@@ -34,6 +34,7 @@ rutasventas.route("/ventas/:id").patch((req, res) => {
 });
 
 rutasventas.route("/ventas/:id").delete((req, res) => {
+  console.log("alguien hizo delete en la ruta /ventas");
   eliminarVenta(req.params.id, genericcallback(res));
 });
 

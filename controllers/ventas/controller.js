@@ -24,7 +24,7 @@ const editarVenta = async (id, edicion, callback) => {
   };
   const baseDeDatos = getDB();
   await baseDeDatos
-    .collection('venta')
+    .collection('ventas')
     .findOneAndUpdate(filtroVenta, operacion, { upsert: true, returnOriginal: true }, callback);
 };
 
