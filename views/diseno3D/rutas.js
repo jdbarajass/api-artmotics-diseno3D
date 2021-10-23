@@ -12,7 +12,7 @@ const genericcallback = (res) => (err, result) => {
   // esto es para enviar respuestas genericas de lo que me esta devolviendo mongo
   if (err) {
     console.log("Error: ", err);
-    res.status(500).send("Error consultando los diseños 3D"); // en esta linea no solo le enviamos el error sino tambien un mensaje
+    //res.status(500).send("Error consultando los diseños 3D"); // en esta linea no solo le enviamos el error sino tambien un mensaje
     res.status(500).json({error: err});
   } else {
     res.json(result); // enviamos el resultado de la colsulta de la base de datos lo enviamos al fronEnd pero en formado .json

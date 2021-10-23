@@ -4,14 +4,16 @@ import Express from "express";
 import Cors from "cors"; // Esta es otra forma
 import dotenv from "dotenv";
 import { conectarBD } from "./db/db.js";
+import jwt from "express-jwt"; // importa las librerias de jwt json web tokens
+import jwks from "jwks-rsa";
 import rutasdiseno3D from "./views/diseno3D/rutas.js";
 import rutasusuarios from "./views/usuarios/rutas.js";
 import rutasventas from "./views/ventas/rutas.js";
-import jwt from "express-jwt";// importa las librerias de jwt json web tokens
-import jwks from "jwks-rsa";
+import autorizacionEstadoUsuario from "./middleware/autorizacionEstadoUsuario.js";
 
 dotenv.config({ path: "./.env" }); // la ruta en donde esta mi link de conección
 //dotenv.config({ path: "./.env" });
+// const port = process.env.PORT || 5000;
 const app = Express();
 
 app.use(Express.json()); // Cuando me llega una solicitud de tipo json en un request el      Express.json convierte el body de ese request en un objeto que ya podemos utilizar
@@ -28,18 +30,20 @@ var jwtCheck = jwt({
   issuer: "https://misiontic-diseno3d.us.auth0.com/",
   algorithms: ["RS256"],
 });
-
+// Enviarle el token a auth0 para que devuelva como respuesta si es valido o no
 app.use(jwtCheck);
-app.use(rutasdiseno3D)
-app.use(rutasusuarios)
-app.use(rutasventas)
+app.use(autorizacionEstadoUsuario);
+app.use(rutasdiseno3D);
+app.use(rutasusuarios);
+app.use(rutasventas);
 
 const main = () => {
+  // return app.listen(port, () => {
   return app.listen(process.env.PORT, () => {
     //process.env.PORT= en el archivo .env estará el puerto (PORT) en el que esta corriendo
     // el link para hacer peticiones es http://localhost:5000/diseno3D
-    console.log(`Escuchando puerto 5000 ${process.env.PORT}`);
-    //console.log(`Escuchando puerto 5000 ${process.env.PORT}`); // String literal para saber el puerto en el que esta corriendo
+    //console.log(`Escuchando puerto 5000 ${port}`);
+    console.log(`Escuchando puerto 5000 ${process.env.PORT}`); // String literal para saber el puerto en el que esta corriendo
   });
 };
 
@@ -99,3 +103,14 @@ me genera */
 // Vista = son las URL
 // Controlador = lo que va adentro de una funcion lo que se controla
 // se instala yarn add express-jwt jwks-rsa express-jwt-authz
+// "https://misiontic-diseno3d.us.auth0.com/.well-known/jwks.json", = es la ruta de conexion a auth0 y se encuentra en auth0 en aplications apis en quick start y lo ponemos en nodejs lo que sifnifica wee-known es que los tokens que se van a autenticar ya los conoce auth0
+/*
+api express auth0
+yarn add express-jwt jwks-rsa express-jwt-authz
+https://auth0.com/docs/quickstart/backend/nodejs/01-authorization
+https://auth0.com/docs/quickstart/spa/react/02-calling-an-api
+*/
+
+
+
+

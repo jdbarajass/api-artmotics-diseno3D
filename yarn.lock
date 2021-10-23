@@ -495,6 +495,13 @@ express-jwt@^6.1.0:
     jsonwebtoken "^8.1.0"
     lodash.set "^4.0.0"
 
+express-oauth2-jwt-bearer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/express-oauth2-jwt-bearer/-/express-oauth2-jwt-bearer-1.0.0.tgz#4944a7c08a34d88a5effecb84e99828b6297ac4c"
+  integrity sha512-xvePWhMh6hNCIpqkNB0iYKTz0/WjBzyApa7u/wKiv6Lsby2KKo05U/WJqJHp76SP0sVtfEXX2+60nk3BMqWJqA==
+  dependencies:
+    jose "^4.0.1"
+
 express-unless@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/express-unless/-/express-unless-1.0.0.tgz#ecd1c354c5ccf7709a8a17ece617934e037cccd8"
@@ -791,6 +798,11 @@ jose@^2.0.5:
   dependencies:
     "@panva/asn1.js" "^1.0.0"
 
+jose@^4.0.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-4.1.1.tgz#c4aa72d6eff30b2719c702ebcb9e983271560cec"
+  integrity sha512-tNr6sbn5AWaCFHMgTQu0H0lJ6RxMacL35bMAzlRzq1hN0Lovyer1eOK88gVH1s+Q9BKChMRXbNgEl2Jk0PVSTA==
+
 json-buffer@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
@@ -839,6 +851,11 @@ jws@^3.2.2:
   dependencies:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
+
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
 
 keyv@^3.0.0:
   version "3.1.0"
