@@ -14,7 +14,7 @@ import autorizacionEstadoUsuario from "./middleware/autorizacionEstadoUsuario.js
 
 dotenv.config({ path: "./.env" }); // la ruta en donde esta mi link de conección
 //dotenv.config({ path: "./.env" });
-// const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 const app = Express();
 
 app.use(Express.json()); // Cuando me llega una solicitud de tipo json en un request el      Express.json convierte el body de ese request en un objeto que ya podemos utilizar
@@ -40,12 +40,12 @@ app.use(rutasventas);
 app.use(rutasclientes)
 
 const main = () => {
-  // return app.listen(port, () => {
-  return app.listen(process.env.PORT, () => {
+   return app.listen(port, () => {
+  //return app.listen(process.env.PORT, () => {
     //process.env.PORT= en el archivo .env estará el puerto (PORT) en el que esta corriendo
     // el link para hacer peticiones es http://localhost:5000/diseno3D
-    //console.log(`Escuchando puerto 5000 ${port}`);
-    console.log(`Escuchando puerto 5000 ${process.env.PORT}`); // String literal para saber el puerto en el que esta corriendo
+    console.log(`Escuchando puerto 5000 ${port}`);
+    //console.log(`Escuchando puerto 5000 ${process.env.PORT}`); // String literal para saber el puerto en el que esta corriendo
   });
 };
 
