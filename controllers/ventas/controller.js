@@ -7,16 +7,10 @@ const queryAllventas = async (callback) => {
 };
 
 const crearventas = async (datosventas, callback) => {
-  if (
-    Object.keys(datosventas).includes("name") &&
-    Object.keys(datosventas).includes("brand") &&
-    Object.keys(datosventas).includes("model")
-  ) {
+
     const baseDeDatos = getDB();
     await baseDeDatos.collection("ventas").insertOne(datosventas, callback);
-  } else {
-    return "error";
-  }
+
 };
 
 const consultarventas = async (id, callback) => {

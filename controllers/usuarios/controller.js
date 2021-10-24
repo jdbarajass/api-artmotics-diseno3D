@@ -7,9 +7,17 @@ const queryAllUsers = async (callback) => {
   await baseDeDatos.collection("usuarios").find({}).limit(50).toArray(callback);
 };
 
+
+const queryAllusuariosVendedor = async (callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection("usuarios").find({rol:"vendedor"}).limit(50).toArray(callback); 
+};
+
 const crearusuarios = async (datosusuarios, callback) => {
   const baseDeDatos = getDB();
   await baseDeDatos.collection("usuarios").insertOne(datosusuarios, callback);
+
+  
 };
 
 const consultarusuarios = async (id, callback) => {
@@ -26,7 +34,7 @@ const consultarOCrearusuarios = async (req, callback) => {// dentro del req esta
   await baseDeDatos.collection("usuarios").findOne({ email: user.email }, async (err, response) => {
       console.log("Respuesta de la consulta a la BD", response);
     if (response) {
-      callback(error, response);
+      callback(err, response);
     } else {
       user.auth0ID = user._id;
       delete user._id; 
@@ -69,6 +77,8 @@ export {
   editarusuarios,
   eliminarusuarios,
   consultarOCrearusuarios,
+  queryAllusuariosVendedor
+  
 };
 // req.headers.authorization.split('Bearer ')[1]; = Con esta funcion me permite tener la posicion 1 del split quita la palabra Bearer y me queda pulpito el token
 // yarn add jwt-decode = Se instala esta libreria para desencriptar el token y sacar la informacion que me necesito de allí

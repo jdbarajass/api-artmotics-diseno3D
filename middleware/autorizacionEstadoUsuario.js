@@ -7,13 +7,13 @@ const autorizacionEstadoUsuario = async (req, res, next) => {
   const token = req.headers.authorization.split('Bearer ')[1];
   // const user = jwt_decode(token)['http://localhost/userData'];
   const user = jwt_decode(token)['http://localhost/userData'];
-  console.log(user);
+ // console.log(user);
 
   // paso 2: consultar el usuario en la BD
   const baseDeDatos = getDB();
   await baseDeDatos.collection('usuarios').findOne({ email: user.email }, async (err, response) => {
     if (response) {
-      console.log(response);
+    //  console.log(response);
       // paso 3: verificar el estado del usuario.
       if (response.estado === 'rechazado') {
         // paso 4: si el usuario es rechazado, devolver un error de autenticacion.

@@ -9,6 +9,7 @@ import jwks from "jwks-rsa";
 import rutasdiseno3D from "./views/diseno3D/rutas.js";
 import rutasusuarios from "./views/usuarios/rutas.js";
 import rutasventas from "./views/ventas/rutas.js";
+import rutasclientes from "./views/clientes/rutas.js";
 import autorizacionEstadoUsuario from "./middleware/autorizacionEstadoUsuario.js";
 
 dotenv.config({ path: "./.env" }); // la ruta en donde esta mi link de conección
@@ -36,6 +37,7 @@ app.use(autorizacionEstadoUsuario);
 app.use(rutasdiseno3D);
 app.use(rutasusuarios);
 app.use(rutasventas);
+app.use(rutasclientes)
 
 const main = () => {
   // return app.listen(port, () => {
