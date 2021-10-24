@@ -26,19 +26,19 @@ const consultarOCrearusuarios = async (req, callback) => {// dentro del req esta
   await baseDeDatos.collection("usuarios").findOne({ email: user.email }, async (err, response) => {
       console.log("Respuesta de la consulta a la BD", response);
     if (response) {
-      callback(error, response);
+      callback(err, response);
     } else {
       user.auth0ID = user._id;
       delete user._id; 
-      user.rol = "admin"; // cuando creemos la persona quedara sin rol
-      user.estado = "autorizado"; // y con estado pendiente
+      user.rol = "sin rol"; // cuando creemos la persona quedara sin rol
+      user.estado = "pendiente"; // y con estado pendiente
       await crearusuarios(user, (err, respuesta) => { console.log("respues creacion", respuesta); callback(err, user)});
       // await crearusuarios(user, (err, respuesta) => {
       //   console.log("respuesta creacion", respuesta);
       //   return callback(err, user);
       // });
       // callback(err, user)) = aca si no existe lo crea y devuelve la informacion del user
-    }
+    } 
     });
 };
 
